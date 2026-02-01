@@ -1,0 +1,33 @@
+# Maven / Gradle build folders
+/target/
+/build/
+
+# IDE / Editor files
+/.idea/
+/*.iml
+/.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# Spring Boot specific
+spring-boot-devtools.properties
+
+# Others
+*.class
+# Spring Boot application properties
+/src/main/resources/application.properties
+/src/main/resources/application.yml
+
+# OR if you want to ignore all env-specific files
+/src/main/resources/application-*.properties
+/src/main/resources/application-*.yml
+
