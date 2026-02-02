@@ -1,5 +1,6 @@
 package com.track.inventory.services;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,6 @@ import com.track.inventory.util.OtpUtil;
 
 @Service
 public class UserService {
-
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final EmailService EmailService;
@@ -29,14 +29,35 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public void login(String email, String password) {
+        UserModel user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("Invalid email or password"));
 
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new RuntimeException("Invalid email or password");
+        }
+
+        generateAndSendOtp(user); 
+    }
+
+    public String verifyLoginOtp(Long userId, String otp) {
+        UserModel user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!otp.equals(user.getOtp())) {
+            throw new RuntimeException("Invalid OTP");
+        }
+        user.setOtp(null);
+        userRepository.save(user);
+        return "Login successful";
+    }
 
     public UserModel getUserById(Long id){
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    
+    @Async
     public void generateAndSendOtp(UserModel user){
         String otp=OtpUtil.generateOtp();
         user.setOtp(otp);
@@ -47,7 +68,7 @@ public class UserService {
     
     public UserModel updateUser(Long id, UserModel user) {
         UserModel existingUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        if (!user.getOtp().equals(existingUser.getOtp())) {
+        if (user.getOtp() == null || !user.getOtp().equals(existingUser.getOtp())) {
             throw new RuntimeException("Invalid OTP");
         }
         existingUser.setName(user.getName());

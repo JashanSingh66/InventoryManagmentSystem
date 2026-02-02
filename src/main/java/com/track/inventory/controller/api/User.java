@@ -26,6 +26,17 @@ public class User{
         return userService.createUser(user);
     }
 
+    @PostMapping("/login")
+    public String login(@RequestBody UserModel user) {
+        userService.login(user.getEmail(), user.getPassword());
+        return "OTP sent to registered email";
+    }
+    @PostMapping("/verify-login-otp/{id}")
+    public String verifyLoginOtp(@PathVariable Long id, @RequestBody UserModel user) {
+        return userService.verifyLoginOtp(id, user.getOtp());
+    }
+
+
     @GetMapping("/{id}")
     public UserModel getUserById(@PathVariable Long id){
         return userService.getUserById(id);
@@ -37,7 +48,7 @@ public class User{
         userService.generateAndSendOtp(user);
         return "OTP sent to email";
     }
-
+    
     @PutMapping("/update/{id}")
     public UserModel updateUser(@PathVariable Long id, @RequestBody UserModel user){
         return userService.updateUser(id, user);
