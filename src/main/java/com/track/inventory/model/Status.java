@@ -1,7 +1,7 @@
 package com.track.inventory.model;
 
 public enum Status {
-    Approved,
-    Pending,
-    Rejected
+    APPROVED,
+    PENDING,
+    REJECTED
 }
