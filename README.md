@@ -1,5 +1,6 @@
 # Inventory Management System
 Disclaimer :- Project is currently in building phase.
+
 This is a Spring Boot project for managing stores, products, and users. It aims to include features like:
 
 - User signup/login 
