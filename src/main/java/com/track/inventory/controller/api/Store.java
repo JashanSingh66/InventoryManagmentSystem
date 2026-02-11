@@ -26,24 +26,26 @@ public class Store {
     public StoreModel createStore(@RequestBody StoreModel store, @PathVariable Long userId){ 
         return storeService.createStore(store,userId);
     }
-    // join a store as staff 
-    @PostMapping("/join/{userID}")
-    public StoreModel joinStore(@RequestBody int storeCode,@PathVariable Long userId){
-        return storeService.joinStore(storeCode,userId);
-    }
 
-    
-    // this is for specific store details
-    @GetMapping("/storeDetails/{id}")
-    public StoreModel getStoreDetails(@PathVariable Long id) {
-        return storeService.getStoreById(id);
-    }
-
-    // to fetch all storedetails of a specific user 
-   @GetMapping("/allStoreDetails/{userID}")
+    @GetMapping("/allStoreDetails/{userID}")
     public List<UserStoreModel> getAllStoreDetails(@PathVariable Long userID) {
         return storeService.getAllStores(userID);
     }
 
+    // join a store as staff 
+    // @PostMapping("/join/{userID}")
+    // public StoreModel joinStore(@RequestBody int storeCode,@PathVariable Long userId){
+    //     return storeService.joinStore(storeCode,userId);
+    // }
+
+    
+    // this is for specific store details
+    // @GetMapping("/storeDetails/{id}")
+    // public StoreModel getStoreDetails(@PathVariable Long id) {
+    //     return storeService.getStoreById(id);
+    // }
+
+    // to fetch all storedetails of a specific user 
+  
 }
 

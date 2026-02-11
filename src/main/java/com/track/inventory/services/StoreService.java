@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.track.inventory.model.Role;
-import com.track.inventory.model.Status;
 import com.track.inventory.model.StoreModel;
 import com.track.inventory.model.UserStoreModel;
 import com.track.inventory.repository.StoreRepository;
@@ -35,22 +33,6 @@ public class StoreService {
             .orElseThrow(() -> new RuntimeException("User not found"))
         );
         userStore.setStore(savedStore);
-        userStore.setRole(Role.ADMIN);
-        userStore.setStatus(Status.APPROVED);
-        userStoreRepository.save(userStore);
-        return savedStore;
-    }
-    
-    public StoreModel joinStore(int storecode,Long userId){
-        StoreModel savedStore = storeRepository.getByStoreCode(storecode);
-        UserStoreModel userStore = new UserStoreModel();
-        userStore.setUser(
-            userRepository.findById(userId)
-            .orElseThrow(() -> new RuntimeException("User not found"))
-        );
-        userStore.setStore(savedStore);
-        userStore.setRole(Role.STAFF);
-        userStore.setStatus(Status.APPROVED);
         userStoreRepository.save(userStore);
         return savedStore;
     }
@@ -62,5 +44,20 @@ public class StoreService {
     public List<UserStoreModel> getAllStores(Long userId){
         return userStoreRepository.findByUserId(userId);
     }
+    
+    // public StoreModel joinStore(int storecode,Long userId){
+    //     StoreModel savedStore = storeRepository.getByStoreCode(storecode);
+    //     UserStoreModel userStore = new UserStoreModel();
+    //     userStore.setUser(
+    //         userRepository.findById(userId)
+    //         .orElseThrow(() -> new RuntimeException("User not found"))
+    //     );
+    //     userStore.setStore(savedStore);
+    //     userStore.setRole(Role.STAFF);
+    //     userStore.setStatus(Status.APPROVED);
+    //     userStoreRepository.save(userStore);
+    //     return savedStore;
+    // }
+
 
 }

@@ -19,7 +19,6 @@ public class UserModel {
     private String name;
     private String email;
     private String password;
-    private String otp;
 
     @OneToMany(mappedBy = "user")
     private List<UserStoreModel> userStores;
@@ -37,9 +36,7 @@ public class UserModel {
     public String getName() {
         return name;
     }
-    public String getOtp() {
-        return otp;
-    }
+
     //setters
     public void setId(Long id) {
         this.id = id;
@@ -53,8 +50,13 @@ public class UserModel {
     public void setName(String name) {
         this.name = name;
     }
-    public void setOtp(String otp) {
-        this.otp = otp;
+    public List<UserStoreModel> getUserStores() {
+        return userStores;
     }
+
+    public void setUserStores(List<UserStoreModel> userStores) {
+        this.userStores = userStores;
+    }
+
 }
 

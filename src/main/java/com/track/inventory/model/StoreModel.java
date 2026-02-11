@@ -25,8 +25,10 @@ public class StoreModel {
 
     @OneToMany(mappedBy = "store")
     private List<UserStoreModel> userStores;
-
     
+    @OneToMany(mappedBy = "store")
+    private List<ProductModel> products;
+
     public Long getId() {
         return id;
     }
@@ -60,5 +62,20 @@ public class StoreModel {
     }
     public void setStoreCode(String storeCode) {
         this.storeCode = storeCode;
+    }  
+    
+    public List<UserStoreModel> getUserStores() {
+        return userStores;
     }
+
+    public void setUserStores(List<UserStoreModel> userStores) {
+        this.userStores = userStores;
+    }
+    public List<ProductModel> getProducts() {
+        return products;
+    }
+    public void setProducts(List<ProductModel> products) {
+        this.products = products;
+    }
+
 }
